@@ -12,7 +12,7 @@
   become_user: solana
   copy:
     src: "{{ id_path }}"
-    dest: /etc/solana/validator_id.json
+    dest: /mnt/operational/solana/keys/validator_id.json
     owner: solana
     group: solana
     mode: "0644"
@@ -22,28 +22,16 @@
   become_user: solana
   copy:
     src: "{{ vote_path }}"
-    dest: /etc/solana/validator_vote.json
+    dest: /mnt/operational/solana/keys/validator_vote.json
     owner: solana
     group: solana
     mode: "0644"
-
-- name: get and store the id key
-  become: true
-  become_user: solana
-  shell: "/home/solana/{{ repo_dir }}/target/release/solana address -k /etc/solana/validator_id.json"
-  register: id_key
-
-- name: get and store the vote key
-  become: true
-  become_user: solana
-  shell: "/home/solana/{{ repo_dir }}/target/release/solana address -k /etc/solana/validator_vote.json"
-  register: vote_key
 
 - name: verify vote account created
   become: true
   become_user: solana
   shell: |
-    /home/solana/{{ repo_dir }}/target/release/solana vote-account /etc/solana/validator_vote.json -u {{ rpc_address }} | grep -e Identity | awk '{print $3}'
+    /mnt/operational/solana/{{ repo_dir }}/target/release/solana vote-account /etc/solana/validator_vote.json -u {{ rpc_address }} | grep -e Identity | awk '{print $3}'
   register: vote_identity
 
 - name: debug

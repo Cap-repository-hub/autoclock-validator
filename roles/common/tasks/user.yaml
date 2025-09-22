@@ -31,4 +31,4 @@
   become_user: root
   lineinfile:
     path: /home/solana/.bashrc
-    line: 'export PATH=/home/solana/{{ repo_dir }}/target/release:$PATH'
+    line: 'export PATH=/mnt/operational/solana/{{ repo_dir }}/target/release:$PATH'

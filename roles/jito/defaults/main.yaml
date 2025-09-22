@@ -1,7 +1,7 @@
 ---
 # Supply a valid jito block engine cluster
 # testnet, mainnet
-cluster: mainnet
+cluster: testnet
 
 # Supply a valid jito block engine location
 # mainnet: amsterdam, frankfurt, ny, tokyo
@@ -11,13 +11,13 @@ location: "ny"
 # MEV commission in basis points. 100 bps = 1%
 commission_bps: 800
 
-rpc_address: https://api.mainnet-beta.solana.com
+rpc_address: https://api.testnet.solana.com
 
 # optional. sends metricss to solana's public influx. encouraged to set true since its helps labs and others debug
 # if something is wrong with your validator
-metrics: true
+metrics: false
 
 org_name: "jito-foundation"
 repo_name: "jito-solana"
 repo_dir: "jito-solana"
-repo_version: "v1.13.6-jito"
+repo_version: "v2.3.9-jito"

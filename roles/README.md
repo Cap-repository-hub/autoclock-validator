@@ -1,0 +1,1 @@
+This is draft of project to auto install jito-solana

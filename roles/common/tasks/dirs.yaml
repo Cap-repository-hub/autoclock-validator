@@ -1,6 +1,6 @@
 - name: solana folder
   file:
-    path: /solana
+    path: /mnt/operational/solana
     state: directory
     owner: solana
     group: solana
@@ -10,7 +10,7 @@
 
 - name: solana snapshots
   file:
-    path: /solana/ledger
+    path: /mnt/operational/solana/ledger
     state: directory
     owner: solana
     group: solana
@@ -19,7 +19,7 @@
 
 - name: solana ledger
   file:
-    path: /solana/ledger
+    path: /mnt/operational/solana/ledger
     state: directory
     owner: solana
     group: solana
@@ -28,7 +28,7 @@
 
 - name: solana accounts
   file:
-    path: /solana/accounts
+    path: /mnt/operational/solana/accounts
     state: directory
     owner: solana
     group: solana
@@ -39,8 +39,16 @@
   become: true
   become_user: root
   file:
-    path: /solana/logs
+    path: /mnt/operational/solana/logs
     state: directory
     owner: solana
     group: solana
 
+- name: solana keys
+  become: true
+  become_user: root
+  file:
+    path: /mnt/operational/solana/keys
+    state: directory
+    owner: solana
+    group: solana

@@ -3,7 +3,7 @@
   become_user: root
   template:
     src: validator.sh.j2
-    dest: /home/solana/validator.sh
+    dest: /mnt/operational/solana/validator.sh
     owner: solana
     group: solana
     mode: "0755"
