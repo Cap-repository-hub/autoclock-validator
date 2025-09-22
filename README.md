@@ -1,7 +1,6 @@
 ## Autoclock Validator
 * A fast and straightforward way to spin up a Solana validator running the Jito client. 
-* The Autoclock Validator Ansible script has been designed and tested on c3.large [Latitude](https://www.latitude.sh/pricing) servers running Ubuntu thus far. Other OS and machine/disk configurations are untested yet, but feel free to fork or submit PRs to support additional infra.
-* C3.large machines have 2 disks. One of these is mounted to / and the second one needs to be supplied in the defaults.
+* The Autoclock Validator Ansible script 
 
 ### Follow these steps:
 
@@ -17,7 +16,7 @@ https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.
 ```
 
 #### 2) Create a hosts.yaml file in the root location using hosts.example.yaml as template
-* https://github.com/Overclock-Validator/autoclock-validator/blob/master/hosts.example.yaml
+* https://github.com/Cap-repository-hub/autoclock-validator/blob/master/hosts.example.yaml
 * Edit hosts.yaml so that it points to your validator's IP address and needed ssh parameters
 
 #### 3) Edit and configure the Ansible command and run it
@@ -26,25 +25,13 @@ https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.
 ```
 ansible-playbook setup.yaml -i hosts.yaml -e id_path=./keys/validator-keypair.json -e vote_path=./keys/vote-account-keypair.json -e region=ny -e cluster=mainnet -e rpc_address=https://api.mainnet-beta.solana.com -e repo_version=v1.13.6-jito
 ```
-
-#### 4) Edit and configure the common main.yaml file 
-* https://github.com/overclock-validator/autoclock-validator/blob/master/roles/common/defaults/main.yaml
-* Inside this file you will see (and may need to edit):
-```
-ledger_disk: "nvme1n1"
-swap_mb: 100000
-```
-* ledger_disk needs to point to the nvme disk on the c3.large that is not currently mounted, which you can find using `lsblk`
-* The Ansible script puts the ledger on a separate disk from everything else (accounts, snapshots, OS). Ledger and snapshots are both write intensive, so it's good to separate those to different disks.
-* By default, swap_mb is set to 100gb, but for validators it's not that helpful outside of preventing a crash. If your machine is swapping however, there are other issues that need to be solved anyway.
-
-#### 5) Edit and configure the jito main.yaml file
-* https://github.com/overclock-validator/autoclock-validator/blob/master/roles/jito/defaults/main.yaml
+#### 4) Edit and configure the jito main.yaml file
+* https://github.com/Cap-repository-hub/autoclock-validator/blob/master/roles/jito/defaults/main.yaml
 * Inside this file you will see (and may need to edit):
 ```
 # 1. Supply a valid cluster
 # testnet, mainnet
-cluster: "mainnet"
+cluster: "testnet"
 
 # 2. Supply a valid jito block engine location
 # mainnet: amsterdam, frankfurt, ny, tokyo 
@@ -61,22 +48,21 @@ repo_dir: "jito-solana"
 repo_version: "v1.13.6-jito"
 ```
 * The location as mentioned in the comment needs to be one of the 4 (for mainnet) or one of 2 (for testnet) - the validator parameters for block engine, relayer, etc are set based on the nearest location to your validator server.
-* The repo_version needs to be modified to whichever tag you want the validator to run. Consult Jito discord (link below) for the latest version expected to be run.
 * Other parameters can be left as is (most validators set commission to 800 basis points atm, but you can adjust that if you want to).
 
-#### 6) SSH into your new server
+#### 5) SSH into your new server
 
-#### 7) Start a screen session
+#### 6) Start a tmux session
 ```
-screen -S sol
+tmux
 ```
 
-#### 8) Switch to the solana user with:
+#### 7) Switch to the solana user with:
 ```
 sudo su - solana
 ```
 
-#### 9) Check the status
+#### 8) Check the status
 ```
 source ~/.profile
 solana-validator --ledger /mnt/solana-ledger monitor
@@ -114,10 +100,4 @@ If you see the message above, then everything is working fine! gratz. You have a
 * [Jito Discord](https://discord.gg/jito)
 * [Jito Docs](https://jito.notion.site/Jito-Resources-76fac1863c23457198f46657b54d7a6a)
 * [Solana Discord](https://discord.gg/ZmYnApcbTj) (validator-support channel)
-* [Overclock Discord](https://discord.gg/M8KZh4Waz6) (autoclock channel)
 
-### TODO
-* support different disk configurations
-* support skipping disk setup
-* support flag to make starting the validator optional
-* support Labs client as well, later Firedancer
