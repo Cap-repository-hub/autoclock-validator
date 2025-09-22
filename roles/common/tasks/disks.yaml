@@ -5,22 +5,9 @@
   ignore_errors: yes
   register: mount_mnt
 
-- name: format disks with ext4
-  become: true
-  become_user: root
-  shell: mkfs.ext4 /dev/{{ ledger_disk }}
-  when: mount_mnt.rc != 0
-
 - name: mount disks for accounts
   become: true
   become_user: root
   shell: mount /dev/{{ ledger_disk }} /solana/ledger && chown -R solana:solana /solana/ledger
   when: mount_mnt.rc != 0
 
-- name: add mounted disk to fstab
-  become: true
-  become_user: root
-  lineinfile:
-    dest: /etc/fstab
-    state: present
-    line: "/dev/{{ ledger_disk }}    /solana/solana-ledger    ext4    defaults    0    1"
