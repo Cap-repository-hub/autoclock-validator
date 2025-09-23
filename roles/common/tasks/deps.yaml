@@ -20,6 +20,7 @@
     - chrony
     - htop
     - acl
+    - tmux
       
 - name: some python utils
   become: true
