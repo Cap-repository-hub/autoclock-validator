@@ -1,46 +1,33 @@
 - name: solana key dir
   file:
-    path: /etc/solana
+    path: "{{ path_to_project }}/keys"
     state: directory
     owner: solana
     group: solana
   become: true
   become_user: root
 
-- name: copy id key to remote
-  become: true
-  become_user: solana
-  copy:
-    src: "{{ id_path }}"
-    dest: /mnt/operational/solana/keys/validator_id.json
-    owner: solana
-    group: solana
-    mode: "0644"
-
-- name: copy vote key to remote
-  become: true
-  become_user: solana
-  copy:
-    src: "{{ vote_path }}"
-    dest: /mnt/operational/solana/keys/validator_vote.json
-    owner: solana
-    group: solana
-    mode: "0644"
-
-- name: verify vote account created
+- name: create identity
   become: true
   become_user: solana
   shell: |
-    /mnt/operational/solana/{{ repo_dir }}/target/release/solana vote-account /etc/solana/validator_vote.json -u {{ rpc_address }} | grep -e Identity | awk '{print $3}'
-  register: vote_identity
+    "{{ path_to_project }}/{{ repo_version }}/bin/solana-keygen new -o {{ path_to_project }}/keys/identity.json"
+  
 
-- name: debug
-  ansible.builtin.debug:
-    msg: "id: {{ vote_identity.stdout }} vote: {{ vote_key.stdout }}"
+#- name: verify vote account created
+#  become: true
+#  become_user: solana
+#  shell: |
+#    {{ path_to_project }}{{ repo_dir }}/target/release/solana vote-account /etc/solana/validator_vote.json -u {{ rpc_address }} | grep -e Identity | awk '{print $3}'
+#  register: vote_identity
 
-- name: verify keys are correct
-  ansible.builtin.assert:
-    that:
-      - vote_identity.stdout == id_key.stdout
-    fail_msg: "vote account not setup properly!"
-    success_msg: "vote account is good!"
+#- name: debug
+#  ansible.builtin.debug:
+#    msg: "id: {{ vote_identity.stdout }} vote: {{ vote_key.stdout }}"
+
+#- name: verify keys are correct
+#  ansible.builtin.assert:
+#    that:
+#      - vote_identity.stdout == id_key.stdout
+#    fail_msg: "vote account not setup properly!"
+#    success_msg: "vote account is good!"

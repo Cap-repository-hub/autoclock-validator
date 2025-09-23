@@ -1,7 +1,7 @@
 - name: build solana
   become: true
   become_user: solana
-  shell: ". \"$HOME/.cargo/env\" && CI_COMMIT=$(git rev-parse HEAD) scripts/cargo-install-all.sh /mnt/operational/solana/{{ repo_version }}"
+  shell: ". \"$HOME/.cargo/env\" && CI_COMMIT=$(git rev-parse HEAD) scripts/cargo-install-all.sh {{ path_to_project }}/{{ repo_version }}"
   args:
-    chdir: "/mnt/operational/solana/{{ repo_dir }}"
+    chdir: "{{ path_to_project }}/{{ repo_dir }}"
     executable: /bin/bash

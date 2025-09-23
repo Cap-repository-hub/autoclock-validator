@@ -1,29 +1,29 @@
 - name: setup solana-validator.service
   become: true
   become_user: root
-  copy:
-    src: solana-validator.service
+  template:
+    src: solana-validator.service.j2
     dest: /etc/systemd/system/solana-validator.service
     owner: root
     group: root
     mode: "0755"
 
-- name: copy restart.sh
+- name: copy restart.sh 
   become: true
-  become_user: solana
-  copy:
-    src: restart.sh
+  become_user: root
+  template:
+    src: restart.sh.j2
     dest: "{{ path_to_project }}/restart.sh"
     owner: solana
     group: solana
     mode: "0755"
     
-- name: copy download_start.sh
+- name: copy restart.sh 
   become: true
-  become_user: solana
-  copy:
-    src: download_start.sh
-    dest: "{{ path_to_project }}/download_start.sh"
+  become_user: root
+  template:
+    src: restart.sh.j2
+    dest: "{{ path_to_project }}/restart.sh"
     owner: solana
     group: solana
     mode: "0755"

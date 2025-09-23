@@ -19,11 +19,11 @@
 - name: restart without waiting
   become: true
   become_user: root
-  shell: /mnt/operational/solana/restart.sh 1
+  shell: "{{ path_to_project }}/restart.sh 1"
   when: download_snapshot|default(true)|bool == true
 
 - name: restart with waiting
   become: true
   become_user: root
-  shell: /mnt/operational/solana/restart.sh
+  shell: "{{ path_to_project }}/restart.sh"
   when: download_snapshot|default(true)|bool == false

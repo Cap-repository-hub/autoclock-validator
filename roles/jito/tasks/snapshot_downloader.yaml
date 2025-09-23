@@ -1,4 +1,4 @@
 - name: download latest snapshot
   become: true
   become_user: solana
-  shell: python3 /mnt/operational/solana/snapshot-finder.py --snapshot_path /mnt/operational/solana/ledger --rpc_address {{ rpc_address }}
+  shell: python3 {{ path_to_project }}/snapshot-finder.py --snapshot_path {{ path_to_project }}/snapshots --rpc_address {{ rpc_address }}
