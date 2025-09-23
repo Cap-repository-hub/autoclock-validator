@@ -65,9 +65,9 @@ sudo su - solana
 #### 8) Check the status
 ```
 source ~/.profile
-solana-validator --ledger /mnt/solana-ledger monitor
-ledger monitor
-Ledger location: /mnt/solana-ledger
+solana-validator --ledger /mnt/operations/solana/ledger monitor
+
+Ledger location: /mnt/operaions/solana/ledger
 ⠉ Validator startup: SearchingForRpcService...
 ```
 
