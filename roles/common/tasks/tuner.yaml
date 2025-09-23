@@ -21,4 +21,8 @@
 - name: Reload sysctl
   become: true
   become_user: root
-  shell: sysctl -p "/etc/sysctl.d/21-agave-validator.conf"
+  shell: 
+    cmd: |
+      sysctl -p /etc/sysctl.d/21-agave-validator.conf
+  args:
+    executable: /bin/bash
