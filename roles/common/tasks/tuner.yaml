@@ -5,7 +5,7 @@
     # Note: this overwrite the file, if you want to append replace EOM with EOF
     cmd: |
       bash -c 'cat >> /etc/sysctl.d/21-agave-validator.conf <<- EOF
-     # Increase max UDP buffer sizes
+      # Increase max UDP buffer sizes
       net.core.rmem_max = 134217728
       net.core.wmem_max = 134217728
 
