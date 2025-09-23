@@ -22,4 +22,3 @@
   become: true
   become_user: root
   shell: sysctl -p "/etc/sysctl.d/21-agave-validator.conf"
-
