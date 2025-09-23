@@ -1,6 +1,6 @@
 - name: solana folder
   file:
-    path: {{ path_to_project }}
+    path: "{{ path_to_project }}"
     state: directory
     owner: solana
     group: solana
@@ -10,7 +10,7 @@
 
 - name: solana snapshots
   file:
-    path: {{ path_to_project }}/snapshots
+    path: "{{ path_to_project }}/snapshots"
     state: directory
     owner: solana
     group: solana
@@ -19,7 +19,7 @@
 
 - name: solana ledger
   file:
-    path: {{ path_to_project }}/ledger
+    path: "{{ path_to_project }}/ledger"
     state: directory
     owner: solana
     group: solana
@@ -28,7 +28,7 @@
 
 - name: solana accounts
   file:
-    path: {{ path_to_project }}/accounts
+    path: "{{ path_to_project }}/accounts"
     state: directory
     owner: solana
     group: solana
@@ -39,7 +39,7 @@
   become: true
   become_user: root
   file:
-    path: {{ path_to_project }}/logs
+    path: "{{ path_to_project }}/logs"
     state: directory
     owner: solana
     group: solana
@@ -48,7 +48,7 @@
   become: true
   become_user: root
   file:
-    path: {{ path_to_project }}/keys
+    path: "{{ path_to_project }}/keys"
     state: directory
     owner: solana
     group: solana

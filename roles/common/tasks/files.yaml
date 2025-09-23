@@ -13,7 +13,7 @@
   become_user: solana
   copy:
     src: restart.sh
-    dest: {{ path_to_project }}/restart.sh
+    dest: "{{ path_to_project }}/restart.sh"
     owner: solana
     group: solana
     mode: "0755"
@@ -23,7 +23,7 @@
   become_user: solana
   copy:
     src: download_start.sh
-    dest: {{ path_to_project }}/download_start.sh
+    dest: "{{ path_to_project }}/download_start.sh"
     owner: solana
     group: solana
     mode: "0755"
@@ -33,7 +33,7 @@
   become_user: solana
   copy:
     src: snapcheck.py
-    dest: {{ path_to_project }}/snapcheck.py
+    dest: "{{ path_to_project }}/snapcheck.py"
     owner: solana
     group: solana
 
@@ -42,7 +42,7 @@
   become_user: solana
   copy:
     src: snapshot-finder.py
-    dest: {{ path_to_project }}/snapshot-finder.py
+    dest: "{{ path_to_project }}/snapshot-finder.py"
     owner: solana
     group: solana
 
@@ -51,6 +51,6 @@
   become_user: solana
   copy:
     src: montip.py
-    dest: {{ path_to_project }}/montip.py
+    dest: "{{ path_to_project }}/montip.py"
     owner: solana
     group: solana
