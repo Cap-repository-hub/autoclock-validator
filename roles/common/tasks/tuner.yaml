@@ -15,12 +15,11 @@
       # Increase number of allowed open file descriptors
       fs.nr_open = 1000000
       EOF"
-
   args:
     executable: /bin/bash
 
 - name: Reload sysctl
   become: true
   become_user: root
-  shell: sysctl -p /etc/sysctl.d/21-agave-validator.conf
+  shell: sysctl -p "/etc/sysctl.d/21-agave-validator.conf"
 
