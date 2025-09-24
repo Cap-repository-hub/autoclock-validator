@@ -1,3 +1,9 @@
+- name: Check that the agave-validator exists
+  stat:
+    path: "{{ path_to_project }}/{{ repo_version }}/bin/agave-validator"
+  register: agave_result
+
+
 - name: build solana
   become: true
   become_user: solana
@@ -5,3 +11,4 @@
   args:
     chdir: "{{ path_to_project }}/{{ repo_dir }}"
     executable: /bin/bash
+    when: not agave_result.stat.exists
