@@ -15,11 +15,10 @@
 - name: create identity
   become: true
   become_user: root
-  shell: |
-    "{{ path_to_project }}/{{ repo_version }}/bin/solana-keygen new -s --no-bip39-passphrase -o {{ path_to_project }}/keys/identity.json"
+  shell: "{{ path_to_project }}/{{ repo_version }}/bin/solana-keygen new -s --no-bip39-passphrase -o {{ path_to_project }}/keys/identity.json"
   args:
     executable: /bin/bash
-  when: not stat_result.stat.exist
+  when: not stat_result.stat.exists
   
 
 #- name: verify vote account created
