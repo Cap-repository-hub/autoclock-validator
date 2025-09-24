@@ -9,7 +9,7 @@
 
 - name: Check that the identity.json exists
   stat:
-    path: /etc/file.txt
+    path: "{{ path_to_project }}/keys/identity.json"
   register: stat_result
 
 - name: create identity
